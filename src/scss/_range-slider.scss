@@ -1,0 +1,79 @@
+/* ==============
+  Range slider
+===================*/
+
+/* Ion Range slider */
+
+.irs--modern {
+
+  .irs-bar,
+  .irs-to,
+  .irs-from,
+  .irs-single {
+    background: $primary !important;
+  }
+
+  .irs-to,
+  .irs-from,
+  .irs-single {
+    &:before {
+      border-top-color: $primary;
+    }
+  }
+
+  .irs-grid-text {
+    font-size: 11px;
+  }
+
+  .irs-min,
+  .irs-max {
+    color: $gray-600;
+  }
+
+  .irs-handle>i:nth-child(1) {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.rangeslider-horizontal {
+  height: 6px !important;
+}
+
+.rangeslider-horizontal .rangeslider__fill {
+  background-color: #626ed4 !important;
+}
+
+.rangeslider-horizontal .rangeslider__handle {
+  width: 22px !important;
+  height: 21px !important;
+}
+
+.rangeslider-horizontal .rangeslider__handle:after {
+  width: 14px !important;
+  height: 14px !important;
+  top: 2px !important;
+  left: 3px !important;
+}
+
+.rangeslider__labels .rangeslider__label-item {
+  font-size: 11px !important;
+}
+
+#left_badge {
+  padding: 3px;
+  float: left;
+  margin-top: -20px;
+  border-radius: 5px;
+  width: 3%;
+  text-align: center;
+}
+
+#right_badge {
+  padding: 3px;
+  float: right;
+  margin-top: -20px;
+  border-radius: 5px;
+  width: 4%;
+  text-align: center;
+}
