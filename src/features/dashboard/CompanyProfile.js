@@ -4,7 +4,6 @@ import {
   Button, Card, CardBody, Col, Container, FormGroup, Row
 } from 'reactstrap';
 import { Link, withRouter } from 'react-router-dom';
-import Settingmenu from '../../pages/Subpages/Settingmenu';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 import user1 from '../../images/users/user-1.jpg'
 import { useDispatch, useSelector } from 'react-redux';

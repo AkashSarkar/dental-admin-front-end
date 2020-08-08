@@ -86,7 +86,8 @@ import ForgetPassword from './pages/Auth/ForgetPassword';
 import ResetPassword from './pages/Auth/ResetPassword';
 import Home from './Home';
 import CompanyProfile from './features/dashboard/CompanyProfile';
-import Sliders from './features/dashboard/Sliders';
+import Sliders from './features/dashboard/sliders/Sliders';
+import AddSlider from './features/dashboard/sliders/AddSlider';
 
 const routes = [
 
@@ -187,6 +188,7 @@ const routes = [
   // Dashboard
   { path: '/company-profile', component: CompanyProfile },
   { path: '/sliders', component: Sliders },
+  { path: '/add-slider', component: AddSlider },
   { path: '/', component: Home }
 
 ];

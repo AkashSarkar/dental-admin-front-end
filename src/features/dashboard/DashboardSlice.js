@@ -55,6 +55,19 @@ export const postCompanyProfileThunk = (postData) => dispatch => {
     dispatch(setProcessComplete())
   })
 }
+
+export const postSlidersThunk = (postData, history = null) => dispatch => {
+  dispatch(setIsProcess())
+  API.post('/sliders/', postData).then((res) => {
+    dispatch(setProcessComplete())
+    dispatch(getSlidersThunk())
+    dispatch(setNotError())
+    history.push('/sliders')
+  }).catch((e) => {
+    dispatch(setIsError())
+    dispatch(setProcessComplete())
+  })
+}
 export const getSlidersThunk = () => dispatch => {
   PUBLIC_API.get('/sliders/')
     .then((res) => {
