@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Badge } from 'reactstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { withRouter, useHistory } from 'react-router-dom';
 // users
 import logo from '../../../images/logo-sm.png';
 import { logOutThunk } from '../../../features/auth/AuthSlice';
+import { API_URL } from '../../../config';
 
 const ProfileMenu = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const companySettings = useSelector(state => state.dashboard.companyProfile)
   const [menu, setMenu] = useState(false)
   const toggle = () => {
     setMenu(!menu)
@@ -26,7 +28,7 @@ const ProfileMenu = () => {
         tag="li"
       >
         <DropdownToggle className="nav-link arrow-none nav-user waves-effect" tag="a">
-          <img src={logo} alt="user" className="rounded-circle" />
+          <img src={`${API_URL}${companySettings.logo}`} alt="user" className="rounded-circle" />
         </DropdownToggle>
         <DropdownMenu className="profile-dropdown" right>
           {/*<DropdownItem tag="a" href="#">

@@ -6,11 +6,13 @@ import { AvForm, AvField } from 'availity-reactstrap-validation';
 import logosm from '../../images/logo-sm.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleLoginThunk } from './AuthSlice';
+import { API_URL } from '../../config';
 
 const Pageslogin = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.auth.user)
+  const companySettings = useSelector(state => state.dashboard.companyProfile)
   const errors = useSelector(state => state.auth.errors)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -30,8 +32,12 @@ const Pageslogin = () => {
 
           <div className="bg-primary p-4 text-white text-center position-relative">
             <h4 className="font-20 m-b-5">Welcome Back !</h4>
-            <p className="text-white-50 mb-4">Sign in to continue to Veltrix.</p>
-            <Link to="/" className="logo logo-admin"><img src={logosm} height="24" alt="logo" /></Link>
+            <p className="text-white-50 mb-4">Sign in to continue to Dental.</p>
+            <Link to="/" className="logo logo-admin">
+              <img src={`${API_URL}${companySettings.logo}`}
+                   height="24"
+                   alt="logo" />
+            </Link>
           </div>
           <div className="account-card-content">
             <AvForm className="form-horizontal m-t-30" onValidSubmit={handleLogin}>
