@@ -26,6 +26,7 @@
     "fullcalendar-reactwrapper": "^1.0.7",
     "google-maps-react": "^2.0.2",
     "lodash.clonedeep": "^4.5.0",
+    "material-table": "^1.68.0",
     "mdbreact": "^4.19.1",
     "metismenujs": "^1.1.0",
     "node-sass": "^4.12.0",

@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, Col, Container, FormGroup, Row, Spinner } from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { postSlidersThunk } from '../DashboardSlice';
+import { updateSliderThunk } from '../DashboardSlice';
+import { API_URL } from '../../../config';
 
 const EditSlider = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const { id } = useParams();
+  const slider = useSelector(state => state.dashboard.sliders.filter((item) => item.id.toString() === id));
   const isLoading = useSelector(state => state.dashboard.isLoading);
   const isErrors = useSelector(state => state.dashboard.isErrors);
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [status, setStatus] = useState('')
+  const [title, setTitle] = useState(slider[0].title || '')
+  const [description, setDescription] = useState(slider[0].description || '')
+  const [status, setStatus] = useState(slider[0].status || '')
   const [logo, setLogo] = useState(null)
 
   const onFileChange = (e) => {
@@ -24,7 +27,7 @@ const EditSlider = () => {
     data.append('description', description);
     data.append('img', logo);
     data.append('status', status);
-    dispatch(postSlidersThunk(data, history));
+    dispatch(updateSliderThunk(id, data, history));
   }
   return (
     <>
@@ -43,12 +46,13 @@ const EditSlider = () => {
                 <CardBody>
                   <AvForm onValidSubmit={onSubmit}>
                     <Row>
-                      <Col lg={1}>
+                      <Col lg={2}>
                         <div>
                           <strong className='mr-lg-4'>Image</strong>
+                          <img src={`${API_URL}${slider[0].img}`} alt='logo' height={40} />
                         </div>
                       </Col>
-                      <Col lg={11}>
+                      <Col lg={10}>
                         <AvField
                           name='image'
                           onChange={onFileChange}
@@ -72,8 +76,9 @@ const EditSlider = () => {
                       label="Description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      placeholder="Address"
-                      type="text"
+                      placeholder="Description"
+                      type="textarea"
+                      rows={5}
                       errorMessage="Enter description"
                       validate={{ required: { value: true } }}
                     />
@@ -110,7 +115,7 @@ const EditSlider = () => {
         ) : (
           <div className='d-flex justify-content-center align-items-center'>
             <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
+              Loading...
             </Spinner>
           </div>
         )}

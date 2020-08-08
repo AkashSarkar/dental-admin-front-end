@@ -88,6 +88,7 @@ import Home from './Home';
 import CompanyProfile from './features/dashboard/CompanyProfile';
 import Sliders from './features/dashboard/sliders/Sliders';
 import AddSlider from './features/dashboard/sliders/AddSlider';
+import EditSlider from './features/dashboard/sliders/EditSlider';
 
 const routes = [
 
@@ -189,6 +190,7 @@ const routes = [
   { path: '/company-profile', component: CompanyProfile },
   { path: '/sliders', component: Sliders },
   { path: '/add-slider', component: AddSlider },
+  { path: '/edit-slider/:id', component: EditSlider },
   { path: '/', component: Home }
 
 ];

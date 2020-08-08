@@ -7,7 +7,8 @@ export const DashboardSlice = createSlice({
     companyProfile: {},
     isLoading: false,
     isErrors: false,
-    sliders: []
+    sliders: [],
+    isFetchSlider: false
   },
   reducers: {
     setCompanySettings: (state, action) => {
@@ -18,6 +19,12 @@ export const DashboardSlice = createSlice({
     },
     setIsProcess: (state) => {
       state.isLoading = true
+    },
+    setFetchingSlider: (state) => {
+      state.isFetchSlider = true
+    },
+    setFetchingSliderComplete: (state) => {
+      state.isFetchSlider = false
     },
     setProcessComplete: (state) => {
       state.isLoading = false
@@ -32,7 +39,7 @@ export const DashboardSlice = createSlice({
 })
 export const {
   setCompanySettings, setSliders, setIsProcess, setProcessComplete,
-  setIsError, setNotError
+  setIsError, setNotError, setFetchingSlider, setFetchingSliderComplete
 } = DashboardSlice.actions;
 export const getCompanySettingsThunk = () => dispatch => {
   PUBLIC_API.get('/company-settings/')
@@ -68,21 +75,36 @@ export const postSlidersThunk = (postData, history = null) => dispatch => {
     dispatch(setProcessComplete())
   })
 }
-export const deleteSlidersThunk = (id) => dispatch => {
+
+export const updateSliderThunk = (id, postData, history = null) => dispatch => {
   dispatch(setIsProcess())
-  API.delete(`/sliders/${id}`).then((res) => {
+  API.put(`/sliders/${id}`, postData).then((res) => {
     dispatch(setProcessComplete())
     dispatch(getSlidersThunk())
     dispatch(setNotError())
+    history.push('/sliders')
+  }).catch((e) => {
+    dispatch(setIsError())
+    dispatch(setProcessComplete())
+  })
+}
+export const deleteSlidersThunk = (id) => dispatch => {
+  dispatch(setIsProcess())
+  API.delete(`/sliders/${id}`).then((res) => {
+    dispatch(getSlidersThunk())
+    dispatch(setNotError())
+    dispatch(setProcessComplete())
   }).catch((e) => {
     dispatch(setIsError())
     dispatch(setProcessComplete())
   })
 }
 export const getSlidersThunk = () => dispatch => {
+  dispatch(setFetchingSlider())
   PUBLIC_API.get('/sliders/')
     .then((res) => {
       dispatch(setSliders(res.data.sliders))
+      dispatch(setFetchingSliderComplete())
     })
     .catch((e) => {
       console.log("e.error")

@@ -73,8 +73,9 @@ const AddSlider = () => {
                       label="Description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      placeholder="Address"
-                      type="text"
+                      placeholder="Description"
+                      type="textarea"
+                      rows={5}
                       errorMessage="Enter description"
                       validate={{ required: { value: true } }}
                     />

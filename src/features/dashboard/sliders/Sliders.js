@@ -1,34 +1,45 @@
 import React from 'react';
-import { Col, Container, Row } from 'reactstrap';
-import DataTable from '../../../components/DataTable';
+import { Col, Container, Row, Spinner } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { deleteSlidersThunk } from '../DashboardSlice';
+import MaterialDataTable from '../../../components/MaterialDataTable';
+import { API_URL } from '../../../config';
 
 const Sliders = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const isLoading = useSelector(state => state.dashboard.isFetchSlider)
   const tableHeaders = [
     {
-      name: "ID",
-      value: "id"
+      title: "ID",
+      field: "id"
     }, {
-      name: "Image",
-      value: "img"
+      title: "Title",
+      field: "title"
     }, {
-      name: "Title",
-      value: "title"
+      title: "Description",
+      field: "description"
     }, {
-      name: "Description",
-      value: "description"
-    }, {
-      name: "Status",
-      value: "status"
-    }, {
-      name: "Actions",
-      value: "actions"
+      title: "Status",
+      field: "status"
     }
   ];
   const sliders = useSelector(state => state.dashboard.sliders)
+  const mapSliders = () => (
+    sliders.map((item) => (
+      {
+        id: item.id,
+        img: `${API_URL}${item.img}`,
+        title: item.title,
+        description: item.description,
+        status: item.status,
+      }
+    ))
+  )
+  const onEdit = (id) => {
+    history.push(`/edit-slider/${id}`)
+  }
   const onDelete = (id) => {
     dispatch(deleteSlidersThunk(id))
   }
@@ -49,11 +60,20 @@ const Sliders = () => {
         </div>
         <Row>
           <Col lg={12}>
-            <DataTable
-              heads={tableHeaders}
-              data={sliders}
-              onDelete={onDelete}
-            />
+            {isLoading ? (
+              <div className='d-flex justify-content-center align-items-center'>
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
+            ) : (
+              <MaterialDataTable
+                heads={tableHeaders}
+                data={mapSliders()}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            )}
           </Col>
         </Row>
       </Container>
