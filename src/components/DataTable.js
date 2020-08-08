@@ -110,7 +110,7 @@ const useStyles2 = makeStyles({
 
 export default function DataTable(
   {
-    heads, data
+    heads, data, onDelete
   }
 ) {
   const classes = useStyles2();
@@ -128,7 +128,7 @@ export default function DataTable(
     setPage(0);
   };
   const deleteItem = (id) => {
-    console.log(id)
+    onDelete(id);
   }
 
   return (
@@ -163,7 +163,7 @@ export default function DataTable(
                       row[item.value]}
                     {item.name === 'Actions' && (
                       <div className="d-flex flex-row">
-                        <button className="btn btn-secondary btn-sm mr-1">Edit</button>
+                        {/*<button className="btn btn-secondary btn-sm mr-1">Edit</button>*/}
                         <button
                           className="btn btn-danger btn-sm"
                           onClick={() => deleteItem(row.id)}

@@ -68,6 +68,17 @@ export const postSlidersThunk = (postData, history = null) => dispatch => {
     dispatch(setProcessComplete())
   })
 }
+export const deleteSlidersThunk = (id) => dispatch => {
+  dispatch(setIsProcess())
+  API.delete(`/sliders/${id}`).then((res) => {
+    dispatch(setProcessComplete())
+    dispatch(getSlidersThunk())
+    dispatch(setNotError())
+  }).catch((e) => {
+    dispatch(setIsError())
+    dispatch(setProcessComplete())
+  })
+}
 export const getSlidersThunk = () => dispatch => {
   PUBLIC_API.get('/sliders/')
     .then((res) => {

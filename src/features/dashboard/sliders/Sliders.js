@@ -1,10 +1,12 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import DataTable from '../../../components/DataTable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteSlidersThunk } from '../DashboardSlice';
 
 const Sliders = () => {
+  const dispatch = useDispatch();
   const tableHeaders = [
     {
       name: "ID",
@@ -27,6 +29,9 @@ const Sliders = () => {
     }
   ];
   const sliders = useSelector(state => state.dashboard.sliders)
+  const onDelete = (id) => {
+    dispatch(deleteSlidersThunk(id))
+  }
   return (
     <>
       <Container fluid>
@@ -47,6 +52,7 @@ const Sliders = () => {
             <DataTable
               heads={tableHeaders}
               data={sliders}
+              onDelete={onDelete}
             />
           </Col>
         </Row>
