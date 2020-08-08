@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Button, Card, CardBody, Col, Container, FormGroup, Row, Spinner } from 'reactstrap';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { useHistory } from 'react-router-dom'
-import user1 from '../../../images/users/user-1.jpg'
 import { useDispatch, useSelector } from 'react-redux';
 import { postSlidersThunk } from '../DashboardSlice';
 
-const AddSlider = () => {
+const EditSlider = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const isLoading = useSelector(state => state.dashboard.isLoading);
@@ -33,7 +32,7 @@ const AddSlider = () => {
         <div className="page-title-box">
           <Row className="align-items-center">
             <Col sm="6">
-              <h2 className="page-title">Add SLider</h2>
+              <h2 className="page-title">Edit Slider</h2>
             </Col>
           </Row>
         </div>
@@ -120,4 +119,4 @@ const AddSlider = () => {
   );
 };
 
-export default AddSlider;
+export default EditSlider;
