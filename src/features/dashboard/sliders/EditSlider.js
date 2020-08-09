@@ -25,7 +25,9 @@ const EditSlider = () => {
     const data = new FormData();
     data.append('title', title);
     data.append('description', description);
-    data.append('img', logo);
+    if (logo) {
+      data.append('img', logo);
+    }
     data.append('status', status);
     dispatch(updateSliderThunk(id, data, history));
   }
